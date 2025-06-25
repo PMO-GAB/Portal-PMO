@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>PMO Estratégico</title>
+  <link rel="shortcut icon" href="https://imgur.com/XdcDgi6.png" type="image/png">
+  <link rel="stylesheet" href="./Teste_files/all.min.css">
+  <link rel="stylesheet" href="./Teste_files/adminlte.min.css">
+  <style>
+    .nav-link p {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; /* Garante que a imagem fique alinhada à direita */
+      width: 100%;
+    }
+
+    .nav-link p span {
+      margin-right: 8px; /* Adiciona espaçamento entre o badge e a imagem de alternância */
+    }
+
+    .nav-link img.alternate-icon {
+      margin-left: auto; /* Garante que a imagem sempre fique à direita */
+    }
+
+    .nav-item.has-treeview ul {
+      display: none; /* Submenu escondido por padrão */
+    }
+
+    .nav-item.has-treeview ul[style="display: block;"] {
+      display: block; /* Submenu expande quando clicado */
+    }
+
+
+
+/* SIDEBAR */
+
+.nav-sidebar {
+  max-height: none; /* Remove qualquer limite de altura */
+}
+
+.navbar-nav {
+    display: flex; /* Garante que os itens da lista sejam exibidos lado a lado */
+    align-items: center; /* Alinha verticalmente os itens */
+}
+
+
+.nav-item img {
+    margin-left: 0px; /* Ajusta o espaçamento entre o ícone de menu e a imagem */
+}
+
+/* Aumenta a linha abaixo da barra de navegação */
+.main-header {
+    border-bottom: 1px solid darkgray; /* Aumenta a espessura e define a cor da linha */
+}
+
+/* Aumenta a linha abaixo do logo na sidebar com mais especificidade */
+.main-sidebar .brand-link {
+    border-bottom: 1px solid darkgray; /* Aumenta a espessura da linha */
+    padding-bottom: 12px; /* Aumenta o espaçamento entre o logo e a linha */
+}
+
+/* Troca a cor da sidebar */
+.main-sidebar {
+  background-color: #273642; /* Cor de fundo para toda a sidebar */
+  overflow-y: auto; /* Permite rolar o conteúdo com o mouse */
+  overflow-x: auto; /* Remove a rolagem horizontal */
+  max-height: 100vh; /* Limita a altura ao tamanho da tela, mas permite rolar */
+  transition: width 0.3s ease;
+  width: 250px; /* Largura padrão da sidebar */
+
+}
+
+.main-sidebar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari e Opera: esconde a barra de rolagem */
+}
+
+.sidebar {
+  background-color: transparent; /* Defina a sidebar como transparente para evitar conflito */
+  overflow-y: auto; /* Ativa a rolagem na sidebar */
+
+}
+
+.sidebar .nav-link img {
+  filter: brightness(0) invert(1); /* Ajusta os ícones para combinarem com o fundo */
+  opacity: 0.7; /* Define a opacidade de 30% */
+}
+
+#logo-img {
+    transition: max-width 0.3s ease, margin-left 0.3s ease;
+}
+
+
+/* Suaviza a transição da sidebar */
+.main-sidebar {
+  transition: width 0.3s ease;
+}
+
+/* Suaviza a transição da imagem */
+.brand-image {
+  transition: max-width 0.3s ease, margin-left 0.3s ease;
+}
+
+
+
+
+
+/* Ajuste para o iframe ocupar toda a página */
+.content-wrapper {
+  flex-grow: 1; /* Permitir que o conteúdo cresça conforme necessário */
+  padding-top: 0px; /* Espaço para o menu superior */
+  overflow: hidden; /* Prevenir barras de rolagem na wrapper */
+}
+
+#content-frame {
+  width: 100%;
+  height: calc(100vh - 56px); /* Altura da viewport menos a altura do menu */
+  border: none; /* Remover bordas do iframe */
+}
+
+body, html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevenir rolagem na página */
+}
+ 
+
+/* Botão de tela cheia usando a imagem */
+#fullscreen-btn {
+  position: fixed;
+  bottom: 2px;
+  right: 2px;
+  width: 17px;
+  height: 17px;
+  background-image: url('https://imgur.com/Oj2rYZA.png'); /* Usa a imagem como fundo */
+  background-size: cover; /* Garante que a imagem cubra todo o botão */
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  cursor: pointer;
+  z-index: 1000; /* Garante que o botão fique sobre outros elementos */
+  outline: none; /* Remove a borda de foco */
+}
+
+#fullscreen-btn:focus {
+  outline: none; /* Garante que a borda laranjada não apareça ao focar no botão */
+}
+
+#fullscreen-btn:hover {
+  opacity: 0.8; /* Efeito ao passar o mouse, se desejar */
+}
+
+#confidential-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Garante que a mensagem seja centralizada verticalmente */
+  text-align: center; /* Centraliza o texto */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.text-center p {
+  font-size: 16px;
+  color: #333; /* Cor do texto */
+  margin: 10px 0; /* Espaçamento entre os parágrafos */
+}
+
+/* Caixa de Pesquisa */
+
+#search-suggestions {
+    padding-left: 0; /* Remove padding do ul */
+    margin-left: 0; /* Remove margem do ul */
+    display: flex;
+    flex-direction: column; /* Empilha os itens verticalmente */
+    justify-content: center; /* Centraliza verticalmente se houver poucos itens */
+    align-items: flex-start; /* Alinha o conteúdo à esquerda */
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+    list-style-type: none;
+    width: 100%;
+    max-height: 1000px; /* Define uma altura máxima */
+    overflow: hidden; /* Remove barra de rolagem */
+}
+
+#search-suggestions li {
+    padding: 5px;
+    cursor: pointer;
+    list-style: none; /* Remove o marcador padrão da lista */
+    width: 100%; /* Garante que o item ocupe toda a largura */
+    text-align: left;
+}
+
+#search-suggestions li:hover {
+    background-color: lightgray; /* Muda o fundo ao passar o mouse */
+}
+
+
+</style>
+
+
+</head>
+
+<button id="fullscreen-btn" title="Tela Cheia" onclick="toggleFullscreen()"></button>
+<body class="sidebar-mini" style="height: 100%;">
+<div class="wrapper">
+
+<nav class="main-header navbar navbar-expand navbar-white navbar-light" style="position: relative;">
+    <!-- Ícone do menu e imagem à esquerda -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="Menu">
+                <img src="https://imgur.com/ebK3j6q.png" alt="Menu Icon" style="width: 24px; height: 24px;margin: -15px; margin-top: -20px; padding: 0;">
+            </a>
+        </li>
+
+        <!-- Imagem à direita do botão -->
+        <li class="nav-item">
+            <img src="https://imgur.com/HSpS0ig.png" style="max-width:150px; max-height:150px; width: 200px; height: auto; margin: -5px; padding: 0x;">
+        </li>
+    </ul>
+
+    <!-- Título centralizado de forma absoluta -->
+    <h5 class="m-0 text-dark" style="color: darkslategray; font-weight: bold; position: absolute; left: 50%; transform: translateX(-50%);">
+        MONITORAMENTO E CONTROLE
+    </h5>
+
+    <!-- Campo de pesquisa à direita -->
+    <form class="form-inline ml-3" id="search-form" style="margin-left: auto; position: absolute; right: 10px; display: flex; align-items: center;">
+        <input class="form-control" type="search" id="search-input" placeholder="Pesquisar" aria-label="Pesquisar" style="width: 300px; border: 1px solid darkgray; border-radius: 10px; height: 30px; padding: 5px 10px; font-size: 14px;">
+        
+        <button class="btn" type="submit" style="border: none; background: transparent; padding: 0; margin-left: -30px; display: flex; align-items: center; justify-content: center;">
+            <img src="https://imgur.com/b8yGogc.png" alt="Search" style="width: 16px; height: 16px; opacity: 0.7;">
+        </button>
+        
+        <ul id="search-suggestions" style="position: absolute; top: 100%; left: 0; background-color: white; border: 1px solid gray; border-radius: 5px; list-style-type: none; width: 100%; display: none; padding-left: 0; margin-left: 0;">
+            <!-- Sugestões aparecerão aqui -->
+        </ul>
+    </form>
+</nav>
+
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="https://conexaoaguasdigital.grupoaguasdobrasil.com.br/pmo-planejamento-estrategico/" class="brand-link">
+      <img src="https://imgur.com/CBTGIQP.png" type="image/png" alt="AdminLTE Logo" class="brand-image" id="logo-img" style="max-width:125px; margin-left: -6px;">
+
+      <div style="text-align: right;">
+        <span class="brand-text font-Segoe UI Bold" style="font-size: 10px;">v1.17.8</span>
+      </div>
+    </a>
+
+    <div class="sidebar">
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-header" style="font-weight: bold;">PORTFÓLIO</li>
+
+          <!-- PE 2023-2027 -->
+          <li class="nav-item has-treeview" id="menu-pe" data-toggle="tooltip" data-placement="right">
+            <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=8221d728-5808-4bcd-b012-303168e1a564&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+              <img src="https://imgur.com/B6kzAX2.png" alt="Icone PE 2023-2027" style="width: 24px; height: 24px;">
+              <p>Estratégico</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="sidebar">
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-header" style="font-weight: bold;">PROJETOS</li>
+
+          <!-- PE 2023-2027 -->
+          <li class="nav-item has-treeview" id="menu-om" data-toggle="tooltip" data-placement="right">
+            <a href="#" class="nav-link" onclick="toggleMenu('pe')">
+              <img src="https://imgur.com/z1syCPv.png" alt="Icone Projeto OM" style="width: 24px; height: 24px;">
+              <p>PE 2023-2027
+                <span class="badge" style="background-color: #4A7880; color: white;">15</span>
+      <img id="icon-pe" class="alternate-icon" src="https://imgur.com/Jt4whFw.png" style="width: 16px; height: 16px;">
+              </p>
+            </a>
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=981f9b31-2acb-4a6e-bdf2-cd12203b3616&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Receita Máxima SAAB" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Receita Máxima SAAB</p>
+    </a>
+  </li>
+</ul>
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=3c9050cd-451e-47f2-ad32-f68a96a3db96&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Água de Valor (2.0)" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Água de Valor (2.0)</p>
+    </a>
+  </li>
+</ul>
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=10230739-054c-4f11-b367-d2363feff0fa&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Jeito Águas de Gestão" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Jeito Águas de Gestão</p>
+    </a>
+  </li>
+</ul>
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=1e061936-7353-43f0-a33b-ed59f89d9bf4&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Excelência em Suprimentos" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Excelência em Suprimentos</p>
+    </a>
+  </li>
+</ul>
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=11012d6f-d161-4c2e-aa14-4f7c7d28da18&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Aprimoramento do CSC" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Aprimoramento do CSC</p>
+    </a>
+  </li>
+</ul>
+
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+ <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=97297585-858e-488f-8640-3a185a5f124d&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Aprimoramento do CSC" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Crescimento Sustentável</p>
+    </a>
+  </li>
+</ul>
+
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+ <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=f7d05cd0-c91b-495f-a73e-2fd2a1d5d198&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Formação de Parcerias de Excelência" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Parcerias de Excelência</p>
+
+    </a>
+  </li>
+</ul>
+
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=5bfa76e4-62eb-4681-b993-4e83971c9378&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Governança 2.0" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Governança 2.0</p>
+    </a>
+  </li>
+</ul>
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=b7065231-1034-44c1-b0b6-143c04f67a0a&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Excelência em Tecnologia" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Excelência em Tecnologia</p>
+    </a>
+  </li>
+</ul>
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=7592921e-2b99-4555-b218-0097df77a7b7&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Estratégia de ASG" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Estratégia de ASG</p>
+    </a>
+  </li>
+</ul>
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=60509ec0-9fe4-4c48-b3ff-ed937804ca94&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Gestão do PE" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Gestão do PE</p>
+    </a>
+  </li>
+</ul>
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=dcfe6200-33c9-49cb-8f6c-5b80192f506e&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Sistema de Inovação" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Sistema de Inovação</p>
+    </a>
+  </li>
+</ul>
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=575e4bf3-c2f5-40dc-8e06-a457b2205b6c&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Receita Máxima - Rio+" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Receita Máxima - Rio+</p>
+    </a>
+  </li>
+</ul>
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=85805101-bafd-47f0-9cd7-52f370aecef3&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Água de Valor - Rio+" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Água de Valor - Rio+</p>
+    </a>
+  </li>
+</ul>
+
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=7609c5ff-58f3-4e23-a107-9ff0afdd67db&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Rio+ Integrada ao Jeito Águas de Gestão" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Jeito Águas de Gestão - Rio+</p>
+    </a>
+  </li>
+</ul>
+
+
+</li>
+
+
+          <!-- Projeto OM -->
+          <li class="nav-item has-treeview" id="menu-om" data-toggle="tooltip" data-placement="right">
+            <a href="#" class="nav-link" onclick="toggleMenu('om')">
+              <img src="https://imgur.com/z1syCPv.png" alt="Icone Projeto OM" style="width: 24px; height: 24px;">
+              <p>Projeto OM
+                <span class="badge" style="background-color: #4A7880; color: white;">02</span>
+                <img id="icon-om" class="alternate-icon" src="https://imgur.com/Jt4whFw.png" style="width: 16px; height: 16px;">
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+              <li class="nav-item">
+                <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=a5106910-1773-4ad6-8648-c37150e9fbf2&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+                  <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Receita Máxima" style="width: 16px; height: 16px; margin-right: 5px;">
+                  <p style="font-size: 15px;">Energia</p>
+                </a>
+              </li>
+            </ul>
+           </a>
+            <ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+              <li class="nav-item">
+                <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=861f21cc-0e04-4176-999f-a65a455416d0&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+                  <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Receita Máxima" style="width: 16px; height: 16px; margin-right: 5px;">
+                  <p style="font-size: 15px;">Manutenção</p>
+                </a>
+              </li>
+            </ul>
+         </ul>
+      </nav>
+    </div>
+ 
+
+
+    <div class="sidebar">
+<nav class="mt-2">
+  <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+    <li class="nav-header" style="font-weight: bold;">ARQUIVO 2023-2024</li>
+
+    <!-- PE 2023-2027 -->
+          <li class="nav-item has-treeview" id="menu-om" data-toggle="tooltip" data-placement="right">
+            <a href="#" class="nav-link" onclick="toggleMenu('pe')">
+              <img src="https://imgur.com/z1syCPv.png" alt="Icone Projeto OM" style="width: 24px; height: 24px;">
+              <p>PE 2023-2027
+                <span class="badge" style="background-color: #4A7880; color: white;">15</span>
+      <img id="icon-pe" class="alternate-icon" src="https://imgur.com/Jt4whFw.png" style="width: 16px; height: 16px;">
+              </p>
+            </a>
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=7eadd7c8-7b32-4c63-956f-3415d212518f&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Receita Máxima SAAB" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Receita Máxima SAAB</p>
+    </a>
+  </li>
+</ul>
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=6dea1e31-ad72-43cd-8ad7-f8a882434eb6&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Água de Valor (2.0)" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Água de Valor (2.0)</p>
+    </a>
+  </li>
+</ul>
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=f0d13384-5899-4dd8-ae68-711d90181678&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Jeito Águas de Gestão" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Jeito Águas de Gestão</p>
+    </a>
+  </li>
+</ul>
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=a54daa6f-d0da-4e21-ac16-6755f86d1680&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Excelência em Suprimentos" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Excelência em Suprimentos</p>
+    </a>
+  </li>
+</ul>
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=34c90ee6-13e1-4ab6-846f-493ee1387af7&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Aprimoramento do CSC" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Aprimoramento do CSC</p>
+    </a>
+  </li>
+</ul>
+
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+ <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=97297585-858e-488f-8640-3a185a5f124d&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Aprimoramento do CSC" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Crescimento Sustentável</p>
+    </a>
+  </li>
+</ul>
+
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+ <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=f7d05cd0-c91b-495f-a73e-2fd2a1d5d198&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Formação de Parcerias de Excelência" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Parcerias de Excelência</p>
+
+    </a>
+  </li>
+</ul>
+
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=5bfa76e4-62eb-4681-b993-4e83971c9378&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Governança 2.0" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Governança 2.0</p>
+    </a>
+  </li>
+</ul>
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=c6d8dc86-e201-4325-b4d6-246cd92ca53a&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Excelência em Tecnologia" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Excelência em Tecnologia</p>
+    </a>
+  </li>
+</ul>
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=38aa38ac-bc57-40fc-aa43-5dd3acc2db28&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Estratégia de ASG" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Estratégia de ASG</p>
+    </a>
+  </li>
+</ul>
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=f2b8cc4b-ad17-47f2-a41a-f0b24d543789&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Gestão do PE" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Gestão do PE</p>
+    </a>
+  </li>
+</ul>
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=4fa971c7-e15e-4263-bc3c-d2e6ada1caa7&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Sistema de Inovação" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Sistema de Inovação</p>
+    </a>
+  </li>
+</ul>
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=52298ff1-6fa8-44aa-9504-40305964c6b8&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Receita Máxima - Rio+" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Receita Máxima - Rio+</p>
+    </a>
+  </li>
+</ul>
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=e0f72b1b-fdd4-41bd-ab09-03a288ead652&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Água de Valor - Rio+" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Água de Valor - Rio+</p>
+    </a>
+  </li>
+</ul>
+
+
+<ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+  <li class="nav-item">
+    <a href="#" class="nav-link" onclick="loadText(event, 'Projeto Encerrado. Informações detalhadas podem ser encontradas acessando os dados do projeto no ambiente do Clarity PPM.')">
+      <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Rio+ Integrada ao Jeito Águas de Gestão" style="width: 16px; height: 16px; margin-right: 5px;">
+      <p style="font-size: 14px;">Jeito Águas de Gestão - Rio+</p>
+    </a>
+  </li>
+</ul>
+
+
+
+
+
+</li>
+
+
+          <!-- Projeto OM -->
+          <li class="nav-item has-treeview" id="menu-om" data-toggle="tooltip" data-placement="right">
+            <a href="#" class="nav-link" onclick="toggleMenu('om')">
+              <img src="https://imgur.com/z1syCPv.png" alt="Icone Projeto OM" style="width: 24px; height: 24px;">
+              <p>Projeto OM
+                <span class="badge" style="background-color: #4A7880; color: white;">02</span>
+                <img id="icon-om" class="alternate-icon" src="https://imgur.com/Jt4whFw.png" style="width: 16px; height: 16px;">
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+              <li class="nav-item">
+                <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=6b7065ba-84a9-490f-b3ed-0bc8412de8ba&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+                  <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Receita Máxima" style="width: 16px; height: 16px; margin-right: 5px;">
+                  <p style="font-size: 15px;">Energia</p>
+                </a>
+              </li>
+            </ul>
+           </a>
+            <ul class="nav nav-treeview" style="display: none;margin-left: 5px;">
+              <li class="nav-item">
+                <a href="#" class="nav-link" onclick="loadReport(event, 'https://app.powerbi.com/reportEmbed?reportId=c25d020d-33c1-440c-91d0-ce281827160f&autoAuth=true&ctid=225ee989-03fd-4927-9f38-cbf55cf306ad&filterPaneEnabled=false&navContentPaneEnabled=false')">
+                  <img src="https://imgur.com/5NSa3cW.png" alt="Ícone Receita Máxima" style="width: 16px; height: 16px; margin-right: 5px;">
+                  <p style="font-size: 15px;">Manutenção</p>
+                </a>
+              </li>
+            </ul>
+         </ul>
+      </nav>
+    </div>
+ 
+
+    <div class="sidebar">
+<nav class="mt-2">
+  <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+    <li class="nav-header" style="font-weight: bold;">ACESSO CLARITY PPM</li>
+
+      <!-- Produção -->
+      <li class="nav-item">
+        <a href="https://clarity.gab.moventus.com/pm/#/projects/common"
+           class="nav-link"
+           target="_blank">
+          <img src="https://imgur.com/dWf6Gsi.png"
+               alt="Ícone Clarity PPM"
+               style="width: 24px; height: 24px;">
+          <p>Produção
+            <span class="badge badge-info"></span>
+            <img id="icon-clarity"
+                 class="alternate-icon"
+                 src="https://imgur.com/Jt4whFw.png"
+                 style="width: 16px; height: 16px;">
+          </p>
+        </a>
+      </li>
+
+
+    <!-- Homologação -->
+    <li class="nav-item">
+      <a href="https://clarity-dev.gab.moventus.com/pm/#/projects/common" class="nav-link" target="_blank"">
+        <img src="https://imgur.com/dWf6Gsi.png" alt="Icone Clarity PPM" style="width: 24px; height: 24px;">
+        <p>Homologação
+          <span class="badge badge-info"></span>
+          <img id="icon-clarity" class="alternate-icon" src="https://imgur.com/Jt4whFw.png" style="width: 16px; height: 16px;">
+        </p>
+      </a>
+    </li>
+  </ul>
+</nav>
+    </div>
+</li>
+  </aside>
+
+  <!-- Content Wrapper com o IFRAME onde o relatório será exibido -->
+<div class="content-wrapper">
+  <iframe name="content-frame" id="content-frame"></iframe>
+</div>
+
+  <div id="sidebar-overlay"></div>
+</div>
+
+<script src="./Teste_files/jquery.min.js.download"></script>
+<script src="./Teste_files/adminlte.js.download"></script>
+
+<!-- JavaScript para carregar o relatório no iframe -->
+<script>
+  function loadReport(event, url) {
+    event.preventDefault(); // Impede o comportamento padrão do link
+    document.getElementById('content-frame').src = url; // Carrega qualquer URL no iframe
+  }
+
+  function toggleMenu(menu) {
+    const icon = document.getElementById('icon-' + menu);
+    const isExpanded = icon.getAttribute('data-expanded') === 'true';
+
+    if (isExpanded) {
+      icon.src = 'https://imgur.com/Jt4whFw.png'; // Recolhido
+      icon.setAttribute('data-expanded', 'false');
+    } else {
+      icon.src = 'https://imgur.com/zcf41Di.png'; // Expandido
+      icon.setAttribute('data-expanded', 'true');
+    }
+  }
+
+
+function toggleFullscreen() {
+  const logoImg = document.getElementById('logo-img');
+
+  // Verifica se a página já está em tela cheia
+  if (!document.fullscreenElement) {
+    // Recolhe o menu lateral
+    document.body.classList.add('sidebar-collapse'); // Classe usada pelo AdminLTE para recolher o menu
+
+    // Ativa o modo tela cheia
+    document.documentElement.requestFullscreen().catch((err) => {
+      alert(`Erro ao tentar entrar em tela cheia: ${err.message}`);
+    });
+
+    // Ajusta o tamanho do logo quando em tela cheia
+    logoImg.style.maxWidth = '125px';
+    logoImg.style.marginLeft = '-6px';
+    
+  } else {
+    // Sai do modo tela cheia
+    document.exitFullscreen();
+
+    // Reabre o menu lateral ao sair da tela cheia (opcional)
+    document.body.classList.remove('sidebar-collapse'); 
+
+    // Ajusta o tamanho do logo quando não estiver em tela cheia
+    logoImg.style.maxWidth = '300px';
+    logoImg.style.marginLeft = '10px';
+  }
+}
+
+function toggleMenu(menu) {
+  const icon = document.getElementById('icon-' + menu);
+  const isExpanded = icon.getAttribute('data-expanded') === 'true';
+
+  if (isExpanded) {
+    icon.src = 'https://imgur.com/Jt4whFw.png'; // Ícone recolhido
+    icon.setAttribute('data-expanded', 'false');
+  } else {
+    icon.src = 'https://imgur.com/zcf41Di.png'; // Ícone expandido
+    icon.setAttribute('data-expanded', 'true');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const wrapper = document.querySelector('.wrapper');
+  const contentWrapper = document.querySelector('.content-wrapper');
+  
+  // Listener para quando o menu lateral for expandido ou recolhido
+  document.querySelector('[data-widget="pushmenu"]').addEventListener('click', function() {
+    setTimeout(() => {
+      // Atualiza o layout dinamicamente com o colapso ou expansão do menu
+      adjustMessagePosition();
+    }, 300); // Tempo para esperar o menu terminar a animação
+  });
+
+  function adjustMessagePosition() {
+    const windowHeight = window.innerHeight;
+    const headerHeight = document.querySelector('.main-header').offsetHeight;
+    const footerHeight = 0; // Se houver rodapé, ajuste aqui
+    const contentHeight = windowHeight - headerHeight - footerHeight;
+    
+    contentWrapper.style.minHeight = contentHeight + 'px'; // Garante que o content-wrapper tenha altura dinâmica
+  }
+
+  // Chamada inicial
+  adjustMessagePosition();
+});
+
+document.getElementById('search-input').addEventListener('input', function() {
+    const query = this.value.toLowerCase();
+    const suggestionsList = document.getElementById('search-suggestions');
+    
+    if (query) {
+        suggestionsList.style.display = 'block';
+        const menuItems = document.querySelectorAll('.nav-item.has-treeview p');
+        suggestionsList.innerHTML = ''; // Limpa a lista
+
+        let itemCount = 0;
+
+        menuItems.forEach(function(item) {
+            const itemName = item.textContent.toLowerCase();
+            if (itemName.includes(query)) {
+                itemCount++; // Conta o número de itens
+                const suggestionItem = document.createElement('li');
+                suggestionItem.textContent = item.textContent;
+                suggestionItem.style.padding = '5px';
+                suggestionItem.style.cursor = 'pointer';
+                suggestionItem.addEventListener('click', function() {
+                    item.click(); // Simula o clique no item do menu
+                    document.getElementById('search-input').value = ''; // Limpa o campo de pesquisa
+                    suggestionsList.style.display = 'none'; // Esconde a lista de sugestões
+                });
+                suggestionsList.appendChild(suggestionItem);
+            }
+        });
+
+        if (itemCount === 1) {
+            // Centraliza o único item verticalmente
+            suggestionsList.style.justifyContent = 'center';
+        } else {
+            // Alinha os itens no topo se houver mais de um
+            suggestionsList.style.justifyContent = 'flex-start';
+        }
+    } else {
+        suggestionsList.style.display = 'none'; // Esconde as sugestões se o campo estiver vazio
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const sidebar = document.querySelector('[data-widget="pushmenu"]');
+    const logoImg = document.getElementById('logo-img');
+
+    function updateLogoSize() {
+        if (document.body.classList.contains('sidebar-collapse')) {
+            // Sidebar recolhida
+            logoImg.style.maxWidth = '125px';
+            logoImg.style.marginLeft = '-6px';
+        } else {
+            // Sidebar expandida
+            logoImg.style.maxWidth = '300px';
+            logoImg.style.marginLeft = '6px';
+        }
+    }
+
+    // Inicializa o estado do logo com base no estado inicial da sidebar
+    updateLogoSize();
+
+    // Monitora o clique no botão da sidebar para alternar a imagem
+    sidebar.addEventListener('click', function() {
+        setTimeout(updateLogoSize, 300); // Atraso para esperar a animação de recolher/expandir terminar
+    });
+});
+
+
+function loadText(event, text) {
+    event.preventDefault(); // Impede o comportamento padrão do link
+    
+    const iframe = document.getElementById('content-frame');
+    
+    iframe.contentWindow.document.open();
+    iframe.contentWindow.document.write(`
+        <html>
+        <head><title>Texto no Iframe</title></head>
+        <style>
+          body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-size: 18px; /* Ajusta o tamanho do texto */
+            text-align: center;
+            color: darkslategray; /* Define a cor */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Define a fonte como Segoe UI */
+            font-weight: bold; /* Define o negrito */
+            flex-direction: column; /* Organiza em coluna */
+          }
+        </style>
+        <body>
+          <p>${text}</p>
+        </body>
+        </html>
+    `);
+    iframe.contentWindow.document.close();
+}
+
+</script>
+
+
+</body>
+</html>
